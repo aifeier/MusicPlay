@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                playId = position;
                 playMusic(position);
             }
         });
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playMusic((playId++) % musicInfos.size());
+                playMusic((++playId) % musicInfos.size());
             }
         });
         previous.setOnClickListener(new View.OnClickListener() {
@@ -189,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (playId == 0)
                     playId = musicInfos.size();
-                playMusic((playId--) % musicInfos.size());
+                playMusic((--playId) % musicInfos.size());
             }
         });
         play.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
     private void playMusic(int position){
         if(position > musicInfos.size())
             return;
-        playId = position;
         listView.smoothScrollToPosition(position);
         SPUtils.put(this, SPTAG, position);
         if(mediaPlayer!=null&&mediaPlayer.isPlaying()) {
