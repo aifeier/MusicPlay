@@ -215,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
     private void playMusic(int position){
         if(position > musicInfos.size())
             return;
+        playId = position;
         listView.smoothScrollToPosition(position);
         SPUtils.put(this, SPTAG, position);
         if(mediaPlayer!=null&&mediaPlayer.isPlaying()) {
