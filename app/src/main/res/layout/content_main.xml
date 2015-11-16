@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/samll_padding"
+    android:paddingTop="@dimen/samll_padding"
+    android:paddingBottom="@dimen/samll_padding"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_main" tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/playnow"
+        android:divider="@color/colorAccent"
+        android:dividerHeight="@dimen/samll_padding"></ListView>
+    <TextView
+        android:id="@+id/playnow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_above="@+id/playtime"
+        android:lines="1"
+        android:textSize="18dp"/>
+    <TextView
+        android:id="@+id/playtime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:layout_above="@+id/seekbar"
+        android:lines="1"
+        android:textSize="14dp"/>
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearlayout"
+        />
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingTop="2dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/while_bg">
+        <ImageView
+            android:id="@+id/previous"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/previous"
+            android:padding="5dp"
+            android:clickable="true"
+            />
+        <ImageView
+            android:id="@+id/play"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/play"
+            android:padding="5dp"
+            android:clickable="true"/>
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/next"
+            android:padding="5dp"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
