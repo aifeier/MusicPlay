@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("挂断");
                     if(mediaPlayer!=null && isPlaying) {
                         mediaPlayer.start();
-                        play.setImageResource(R.drawable.stop);
+                        play.setImageResource(R.drawable.pause);
                     }
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     if(mediaPlayer!=null &&mediaPlayer.isPlaying()) {
                         mediaPlayer.pause();
                         isPlaying = true;
-                        play.setImageResource(R.drawable.play);
+                        play.setImageResource(R.drawable.start);
                     }
                     break;
                 case TelephonyManager.CALL_STATE_RINGING:
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     if(mediaPlayer!=null &&mediaPlayer.isPlaying()) {
                         mediaPlayer.pause();
                         isPlaying = true;
-                        play.setImageResource(R.drawable.play);
+                        play.setImageResource(R.drawable.start);
                     }
                     //输出来电号码
                     break;
@@ -178,13 +178,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        previous.setOnClickListener(new View.OnClickListener() {
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 playMusic((playId++) % musicInfos.size());
             }
         });
-        next.setOnClickListener(new View.OnClickListener() {
+        previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (playId == 0)
@@ -196,15 +196,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                    play.setImageResource(R.drawable.play);
+                    play.setImageResource(R.drawable.start);
                     mediaPlayer.pause();
                     isPlaying = false;
                 } else if (mediaPlayer != null) {
-                    play.setImageResource(R.drawable.stop);
+                    play.setImageResource(R.drawable.pause);
                     mediaPlayer.start();
                     isPlaying = true;
                 } else {
-                    play.setImageResource(R.drawable.stop);
+                    play.setImageResource(R.drawable.pause);
                     playMusic(playId);
                 }
             }
@@ -215,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
     private void playMusic(int position){
         if(position > musicInfos.size())
             return;
+        listView.smoothScrollToPosition(position);
         SPUtils.put(this, SPTAG, position);
         if(mediaPlayer!=null&&mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
@@ -243,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                         .replace(".flac", "").replace(".acc", ""));
                 mp.start();
                 isPlaying = true;
-                play.setImageResource(R.drawable.stop);
+                play.setImageResource(R.drawable.pause);
                 seekBar.setMax(mp.getDuration());
                 seekBar.setEnabled(true);
                 startProgressLoading();
@@ -284,12 +285,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        if(mediaPlayer!=null&&mediaPlayer.isPlaying()){
+            isPlaying = true;
+            mediaPlayer.pause();
+        }
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if(mediaPlayer!=null&&isPlaying)
+            mediaPlayer.start();
     }
 
     @Override

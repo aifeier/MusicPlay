@@ -13,7 +13,7 @@
         android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/playnow"
+        android:layout_above="@+id/seekbar"
         android:divider="@color/colorAccent"
         android:dividerHeight="@dimen/samll_padding"></ListView>
     <TextView
@@ -29,14 +29,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"
-        android:layout_above="@+id/seekbar"
+        android:layout_above="@+id/linearlayout"
         android:lines="1"
         android:textSize="14dp"/>
     <SeekBar
         android:id="@+id/seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearlayout"
+        android:layout_above="@+id/playnow"
         />
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/play"
+            android:src="@drawable/start"
             android:padding="5dp"
             android:clickable="true"/>
         <ImageView
