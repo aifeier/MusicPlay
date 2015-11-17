@@ -100,13 +100,8 @@ public class MusicService extends Service{
     @Override
     public IBinder onBind(Intent intent) {
         mediaPlayer = new MediaPlayer();
-
         return null;
     }
 
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_REDELIVER_INTENT;
-    }
 }
