@@ -26,7 +26,7 @@
             android:enabled="true"
             android:process=":MusicService">
             <intent-filter>
-                <action android:name="com.cwf.app.musicplay.MusicService"></action>
+                <action android:name="com.cwf.app.musicplay.musicservice"></action>
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </service>

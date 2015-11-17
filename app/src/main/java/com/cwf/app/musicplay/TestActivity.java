@@ -1,8 +1,11 @@
 package com.cwf.app.musicplay;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +26,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -59,11 +63,36 @@ public class TestActivity extends AppCompatActivity{
             }
         });
         fab.setVisibility(View.GONE);
+
         musicService = new MusicService(this, MusicLoader.instance(getContentResolver()).getMusicList());
-        bindService(new Intent(MusicService.ACTION), serviceConnection, 0);
-        stopService(new Intent(MusicService.ACTION));
+        Intent i = new Intent();
+        i.setAction(MusicService.ACTION);
+        Intent eintent = new Intent(getExplicitIntent(this,i));
+        bindService(eintent, serviceConnection, 0);
+        stopService(eintent);
         initPlayView();
         initList();
+    }
+
+    /*修复android5.0报Service Intent must be explicit错误*/
+    public static Intent getExplicitIntent(Context context, Intent implicitIntent) {
+        // Retrieve all services that can match the given intent
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> resolveInfo = pm.queryIntentServices(implicitIntent, 0);
+        // Make sure only one match was found
+        if (resolveInfo == null || resolveInfo.size() != 1) {
+            return null;
+        }
+        // Get component info and create ComponentName
+        ResolveInfo serviceInfo = resolveInfo.get(0);
+        String packageName = serviceInfo.serviceInfo.packageName;
+        String className = serviceInfo.serviceInfo.name;
+        ComponentName component = new ComponentName(packageName, className);
+        // Create a new intent. Use the old one for extras and such reuse
+        Intent explicitIntent = new Intent(implicitIntent);
+        // Set the component to be explicit
+        explicitIntent.setComponent(component);
+        return explicitIntent;
     }
 
     private ServiceConnection serviceConnection= new ServiceConnection() {

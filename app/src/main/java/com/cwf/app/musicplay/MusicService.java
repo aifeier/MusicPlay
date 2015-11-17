@@ -18,7 +18,7 @@ import de.greenrobot.event.EventBus;
  */
 public class MusicService extends Service{
 
-    public static String ACTION = "com.cwf.app.musicplay.MusicService";
+    public static String ACTION = "com.cwf.app.musicplay.musicservice";
     private String SPTAG = "play_id";
     private Context mContext;
 
