@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/seekbar"
-        android:divider="@color/colorAccent"
+        android:divider="#FF80A1"
         android:dividerHeight="@dimen/samll_padding"></ListView>
     <TextView
         android:id="@+id/playnow"
